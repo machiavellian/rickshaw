@@ -1,6 +1,6 @@
-Rickshaw.namespace('Rickshaw.Fixtures.Time');
+Rickshaw.namespace('Rickshaw.Fixtures.Time.Precise');
 
-Rickshaw.Fixtures.Time = function() {
+Rickshaw.Fixtures.Time.Precise = function() {
 
 	var self = this;
 
