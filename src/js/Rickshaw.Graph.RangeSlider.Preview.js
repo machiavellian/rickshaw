@@ -207,7 +207,7 @@ Rickshaw.Graph.RangeSlider.Preview = Rickshaw.Class.create({
 		element.enter()
 			.append("path")
 			.attr("fill", "white")
-			.attr("fill-opacity", "0.7")
+			.attr("fill-opacity", "0.9")
 			.attr("fill-rule", "evenodd")
 			.classed("dimming", true);
 
@@ -318,7 +318,8 @@ Rickshaw.Graph.RangeSlider.Preview = Rickshaw.Class.create({
 		middleHandle.enter()
 			.append("rect")
 			.style("cursor", "move")
-			.style("fill-opacity", "0")
+			.style("fill", "white")
+			.style("fill-opacity", "0.3")
 			.classed("middle_handle", true);
 
 		middleHandle
