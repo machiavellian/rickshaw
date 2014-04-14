@@ -18,24 +18,24 @@ Rickshaw.Graph.Renderer.Xkcd = Rickshaw.Class.create( Rickshaw.Graph.Renderer, {
 	graph.vis.selectAll('*').remove();
 
 	var element = graph.vis.selectAll("path")
-	    .data(this.graph.stackedData)
-	    .enter();
+		.data(this.graph.stackedData)
+		.enter();
 
 	var line = d3.svg.line()
-	    .x( function(d) { return graph.x(d.x) } )
-	    .y( function(d) { return graph.y(d.y) } )
-	    .interpolate(xinterp_on_graph(graph)).tension(this.tension);
+		.x( function(d) { return graph.x(d.x) } )
+		.y( function(d) { return graph.y(d.y) } )
+		.interpolate(xinterp_on_graph(graph)).tension(this.tension);
 
 	var nodes = element.append("svg:path")
-	    .attr("d", line)
-            .style("stroke-width", strokeWidth + "px")
-            .style("fill", "none");
+		.attr("d", line)
+		.style("stroke-width", strokeWidth + "px")
+		.style("fill", "none");
 
 	var i = 0;
 	graph.series.forEach( function(series) {
-	    if (series.disabled) return;
-	    series.path = nodes[0][i++];
-	    this._styleSeries(series);
+		if (series.disabled) return;
+		series.path = nodes[0][i++];
+		this._styleSeries(series);
 	}, this );
     },
 });
@@ -45,7 +45,7 @@ function xinterp_on_graph(graph) {
     var wobble = graph.renderer.wobble || 0.005;
     return function(points) {
   return xinterp(graph.x, graph.y, domain.x, domain.y, wobble, points);
-    }
+    };
 }
 
 function xinterp (xscale, yscale, xlim, ylim, magnitude, points) {
@@ -60,7 +60,7 @@ function xinterp (xscale, yscale, xlim, ylim, magnitude, points) {
 
     // Compute the distance along the path using a map-reduce.
     var dists = scaled.map(function (d, i) {
-        if (i == 0) return 0.0;
+        if (i === 0) return 0.0;
         var dx = d[0] - scaled[i - 1][0],
             dy = d[1] - scaled[i - 1][1];
         return Math.sqrt(dx * dx + dy * dy);
@@ -73,7 +73,7 @@ function xinterp (xscale, yscale, xlim, ylim, magnitude, points) {
     // Re-sample the line.
     var resampled = [];
     dists.map(function (d, i) {
-        if (i == 0) return;
+        if (i === 0) return;
         var n = Math.max(3, Math.round(d / dist * N)),
             spline = d3.interpolate(scaled[i - 1][1], scaled[i][1]),
             delta = (scaled[i][0] - scaled[i - 1][0]) / (n - 1);
@@ -83,7 +83,7 @@ function xinterp (xscale, yscale, xlim, ylim, magnitude, points) {
 
     // Compute the gradients.
     var gradients = resampled.map(function (a, i, d) {
-        if (i == 0) return [d[1][0] - d[0][0], d[1][1] - d[0][1]];
+        if (i === 0) return [d[1][0] - d[0][0], d[1][1] - d[0][1]];
         if (i == resampled.length - 1)
             return [d[i][0] - d[i - 1][0], d[i][1] - d[i - 1][1]];
         return [0.5 * (d[i + 1][0] - d[i - 1][0]),
