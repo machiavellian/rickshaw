@@ -23,6 +23,8 @@ JS_FILES=\
 	src/js/Rickshaw.Fixtures.RandomData.js\
 	src/js/Rickshaw.Fixtures.Time.js\
 	src/js/Rickshaw.Fixtures.Time.Local.js\
+	src/js/Rickshaw.Fixtures.Time.Precise.js\
+	src/js/Rickshaw.Fixtures.Time.Precise.Local.js\
 	src/js/Rickshaw.Fixtures.Number.js\
 	src/js/Rickshaw.Color.Palette.js\
 	src/js/Rickshaw.Graph.Ajax.js\
@@ -47,6 +49,7 @@ JS_FILES=\
 	src/js/Rickshaw.Graph.Renderer.ScatterPlot.js\
 	src/js/Rickshaw.Graph.Renderer.Multi.js\
 	src/js/Rickshaw.Graph.Renderer.LinePlot.js\
+	src/js/Rickshaw.Graph.Renderer.Xkcd.js\
 	src/js/Rickshaw.Graph.Smoother.js\
 	src/js/Rickshaw.Graph.Socketio.js\
 	src/js/Rickshaw.Series.js\
