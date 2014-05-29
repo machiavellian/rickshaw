@@ -399,6 +399,11 @@ Rickshaw.Graph = function(args) {
 		this.series = args.series;
 		this.window = {};
 
+		// Pull window.xM(in|ax) from window location, if present
+		var hash = window.location.hash.slice(1).split(",");
+		if (hash[0] !== 0) { this.window.xMin = hash[0];}
+		if (hash[1] !== 0) { this.window.xMax = hash[1];}
+
 		this.updateCallbacks = [];
 		this.configureCallbacks = [];
 
@@ -2825,12 +2830,15 @@ Rickshaw.Graph.RangeSlider.Preview = Rickshaw.Class.create({
 			frameColor: "#d4d4d4",
 			frameOpacity: 1,
 			minimumFrameWidth: 0,
-			heightRatio: 0.2
+			heightRatio: 0.2,
+			onChangeDo: undefined
 		};
 
 		this.heightRatio = args.heightRatio || this.defaults.heightRatio;
 		this.defaults.gripperColor = d3.rgb(this.defaults.frameColor).darker().toString(); 
 
+
+		this.onChangeDo = args.onChangeDo || this.defaults.onChangeDo;
 		this.configureCallbacks = [];
 		this.slideCallbacks = [];
 
@@ -3000,6 +3008,8 @@ Rickshaw.Graph.RangeSlider.Preview = Rickshaw.Class.create({
 		this._renderMiddle();
 
 		this._registerMouseEvents();
+		if (typeof this.onChangeDo == 'function') { this.onChangeDo(); }
+
 	},
 
 	_renderDimming: function() {
@@ -3208,6 +3218,19 @@ Rickshaw.Graph.RangeSlider.Preview = Rickshaw.Class.create({
 				}
 				graph.window.xMin = windowAfterDrag[0];
 				graph.window.xMax = windowAfterDrag[1];
+
+				// Add graph.window.xM(in|ax) to window location        
+				var baseURL = window.location.href.split("#")[0];
+				var values = [];
+				windowAfterDrag.forEach(function(d){
+					if (d) { 
+						values.push(parseInt(d)); 
+					} else { 
+						values.push(0);
+					} 
+				});
+				window.location.replace(baseURL + "#" + values);
+
 
 				graph.update();
 			});
