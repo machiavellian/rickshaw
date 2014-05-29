@@ -21,12 +21,15 @@ Rickshaw.Graph.RangeSlider.Preview = Rickshaw.Class.create({
 			frameColor: "#d4d4d4",
 			frameOpacity: 1,
 			minimumFrameWidth: 0,
-			heightRatio: 0.2
+			heightRatio: 0.2,
+			onChangeDo: undefined
 		};
 
 		this.heightRatio = args.heightRatio || this.defaults.heightRatio;
 		this.defaults.gripperColor = d3.rgb(this.defaults.frameColor).darker().toString(); 
 
+
+		this.onChangeDo = args.onChangeDo || this.defaults.onChangeDo;
 		this.configureCallbacks = [];
 		this.slideCallbacks = [];
 
@@ -196,6 +199,8 @@ Rickshaw.Graph.RangeSlider.Preview = Rickshaw.Class.create({
 		this._renderMiddle();
 
 		this._registerMouseEvents();
+		if (typeof this.onChangeDo == 'function') { this.onChangeDo(); }
+
 	},
 
 	_renderDimming: function() {

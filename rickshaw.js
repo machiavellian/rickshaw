@@ -550,7 +550,12 @@ Rickshaw.Graph = function(args) {
 				var seriesData = data[index];
 				if(seriesData) {
 					seriesData.forEach( function(d) {
-						d.y = series.scale(d.y);
+						// Want to handle null as no points - JSON won't accept these as NaN, so use null instead, and put back here.
+						if (d.y === null) { 
+							d.y = null; 
+						} else {
+							d.y = series.scale(d.y);
+						}
 					} );
 				}
 			}
