@@ -13,6 +13,11 @@ Rickshaw.Graph = function(args) {
 		this.series = args.series;
 		this.window = {};
 
+		// Pull window.xM(in|ax) from window location, if present
+		hash = window.location.hash.slice(1).split(",");
+		if (hash[0] !== 0) { this.window.xMin = hash[0];}
+		if (hash[1] !== 0) { this.window.xMax = hash[1];}
+
 		this.updateCallbacks = [];
 		this.configureCallbacks = [];
 

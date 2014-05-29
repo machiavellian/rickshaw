@@ -405,6 +405,13 @@ Rickshaw.Graph.RangeSlider.Preview = Rickshaw.Class.create({
 				graph.window.xMin = windowAfterDrag[0];
 				graph.window.xMax = windowAfterDrag[1];
 
+				// Add graph.window.xM(in|ax) to window location        
+				baseURL = window.location.href.split("#")[0]
+				values = []
+				windowAfterDrag.forEach(function(d){if (d) { values.push(parseInt(d)) } else { values.push(0)} })
+				window.location.replace(baseURL + "#" + values)
+
+
 				graph.update();
 			});
 		}
